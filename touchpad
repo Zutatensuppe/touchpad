@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# for information see https://wiki.archlinux.org/title/Libinput#Via_xinput
+
+DEVICE_NAME="DLL079F:01 044E:120B" # find this via `xinput list`
+DEVICE_ID=$(xinput list --id-only "$DEVICE_NAME")
+
+get_prop_id()
+{
+  DEVICE_ID=$1
+  PROP_DESCRIPTION=$2
+  LINE=$(xinput list-props $DEVICE_ID | grep "$PROP_DESCRIPTION (")
+  PROP_ID=$(echo $LINE | sed -r "s/.*$PROP_DESCRIPTION \(([0-9]+)\).*/\1/")
+  echo $PROP_ID
+}
+
+set_prop()
+{
+  DEVICE_ID=$1
+  PROP_DESCRIPTION=$2
+  NEW_VAL=$3
+  PROP_ID=$(get_prop_id "$DEVICE_ID" "$PROP_DESCRIPTION")
+  echo "Setting device $DEVICE_ID's $PROP_DESCRIPTION to '$NEW_VAL'"
+  xinput set-prop "$DEVICE_ID" "$PROP_ID" "$NEW_VAL"
+}
+
+if [ "$DEVICE_ID" != "" ]; then
+  set_prop $DEVICE_ID "Tapping Enabled" 1
+  set_prop $DEVICE_ID "Natural Scrolling Enabled" 1
+  set_prop $DEVICE_ID "Disable While Typing Enabled" 0
+fi
+
