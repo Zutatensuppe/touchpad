@@ -5,7 +5,7 @@ the laptop.
 
 - enables natural scrolling
 - enables tap to click
-- disables 'disable tap while typing'
+- keeps touchpad enabled while typing
 
 ## Usage
 
