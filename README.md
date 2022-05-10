@@ -9,13 +9,14 @@ the laptop.
 
 ## Usage
 
-Launch the script:
-```
-./touchpad
-```
+1. Find the input device name (use `xinput list`).
+2. Adjust `touchpad` script to use the desired DEVICE_NAME.
+3. Launch the script
+    ```
+    ./touchpad
+    ```
 
-Or inside i3wm config:
-
+For use inside i3wm just put this to the i3 config:
 ```
 exec PATH_TO/touchpad
 ```
@@ -28,3 +29,4 @@ exec PATH_TO/touchpad
 ## Resources 
 
 https://wiki.archlinux.org/title/Libinput#Via_xinput
+
